@@ -35,24 +35,7 @@ class Body extends StatelessWidget {
               SizedBox(
                 height: 30,
               ),
-              StreamBuilder<Object>(
-                  stream: emailBloc.emailStream,
-                  builder: (context, snapshot) {
-                    return TextFormField(
-                      controller: emailInputController,
-                      decoration: InputDecoration(
-                          labelText: "Email nhà trường cung cấp",
-                          contentPadding: EdgeInsets.symmetric(
-                              vertical: 15, horizontal: 30),
-                          enabledBorder: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(30),
-                              gapPadding: 10),
-                          focusedBorder: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(30),
-                              gapPadding: 10),
-                          errorText: snapshot.hasError ? snapshot.error : null),
-                    );
-                  }),
+              buildEmailInput(),
               SizedBox(
                 height: 30,
               ),
@@ -66,5 +49,26 @@ class Body extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  StreamBuilder<Object> buildEmailInput() {
+    return StreamBuilder<Object>(
+                stream: emailBloc.emailStream,
+                builder: (context, snapshot) {
+                  return TextFormField(
+                    controller: emailInputController,
+                    decoration: InputDecoration(
+                        labelText: "Email nhà trường cung cấp",
+                        contentPadding: EdgeInsets.symmetric(
+                            vertical: 15, horizontal: 30),
+                        enabledBorder: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(30),
+                            gapPadding: 10),
+                        focusedBorder: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(30),
+                            gapPadding: 10),
+                        errorText: snapshot.hasError ? snapshot.error : null),
+                  );
+                });
   }
 }

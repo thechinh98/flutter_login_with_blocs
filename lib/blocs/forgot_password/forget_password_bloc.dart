@@ -15,6 +15,7 @@ class EmailBloc {
       _emailController.sink.addError(kInvalidEmail);
       return false;
     }
+    _emailController.sink.add("Hợp lệ");
     return true;
   }
 }

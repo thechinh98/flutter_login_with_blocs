@@ -22,53 +22,11 @@ class _SignInFormState extends State<SignInForm> {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        StreamBuilder(
-          stream: loginBloc.emailStream,
-          builder: (context, snapshot) {
-            return TextFormField(
-              controller: _emailInputController,
-              decoration: InputDecoration(
-                labelText: "Tài khoản",
-                contentPadding: EdgeInsets.symmetric(vertical: 15, horizontal: 30),
-                enabledBorder: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(30), gapPadding: 10),
-                focusedBorder: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(30), gapPadding: 10),
-                errorText: snapshot.hasError? snapshot.error : null
-              ),
-            );
-          }
-        ),
+        buildEmailInput(),
         SizedBox(
           height: 20,
         ),
-        StreamBuilder(
-          stream: loginBloc.passwordStream,
-          builder: (context, snapshot) {
-            return TextFormField(
-              key: _formKey,
-              controller: _passwordInputController,
-              obscureText: _obscureText,
-              decoration: InputDecoration(
-                labelText: "Mật khẩu",
-                contentPadding: EdgeInsets.symmetric(vertical: 15, horizontal: 30),
-                suffixIcon: IconButton(
-                  icon: Icon(Icons.remove_red_eye),
-                  onPressed: () {
-                    setState(() {
-                      _toggle();
-                    });
-                  },
-                ),
-                enabledBorder: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(30), gapPadding: 10),
-                focusedBorder: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(30), gapPadding: 10),
-                errorText: snapshot.hasError? snapshot.error: null,
-              ),
-            );
-          }
-        ),
+        buildPasswordInput(),
         SizedBox(
           height: 40,
         ),
@@ -79,6 +37,56 @@ class _SignInFormState extends State<SignInForm> {
         }),
       ],
     );
+  }
+
+  StreamBuilder buildPasswordInput() {
+    return StreamBuilder(
+        stream: loginBloc.passwordStream,
+        builder: (context, snapshot) {
+          return TextFormField(
+            key: _formKey,
+            controller: _passwordInputController,
+            obscureText: _obscureText,
+            decoration: InputDecoration(
+              labelText: "Mật khẩu",
+              contentPadding: EdgeInsets.symmetric(vertical: 15, horizontal: 30),
+              suffixIcon: IconButton(
+                icon: Icon(Icons.remove_red_eye),
+                onPressed: () {
+                  setState(() {
+                    _toggle();
+                  });
+                },
+              ),
+              enabledBorder: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(30), gapPadding: 10),
+              focusedBorder: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(30), gapPadding: 10),
+              errorText: snapshot.hasError? snapshot.error: null,
+            ),
+          );
+        }
+      );
+  }
+
+  StreamBuilder buildEmailInput() {
+    return StreamBuilder(
+        stream: loginBloc.emailStream,
+        builder: (context, snapshot) {
+          return TextFormField(
+            controller: _emailInputController,
+            decoration: InputDecoration(
+              labelText: "Tài khoản",
+              contentPadding: EdgeInsets.symmetric(vertical: 15, horizontal: 30),
+              enabledBorder: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(30), gapPadding: 10),
+              focusedBorder: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(30), gapPadding: 10),
+              errorText: snapshot.hasError? snapshot.error : null
+            ),
+          );
+        }
+      );
   }
 
 }
